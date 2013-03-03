@@ -8,6 +8,10 @@ var express = require('express')
   , user = require('./routes/user')
   , http = require('http')
   , path = require('path');
+  
+var databaseUrl = "localhost";
+var collections = ["chunks"]
+var db = require("mongojs").connect(databaseUrl, collections);
 
 var app = express();
 
@@ -31,6 +35,18 @@ app.configure('development', function(){
 
 app.get('/', routes.index);
 app.get('/users', user.list);
+
+db.chunks.save({email: "srirangan@gmail.com", password: "iLoveMongo", sex: "male"}, function(err, saved) {
+  if( err || !saved ) console.log("User not saved");
+  else console.log("User saved");
+});
+
+db.chunks.find({sex: "male"}, function(err, users) {
+  if( err || !users) console.log("No male users found");
+  else users.forEach( function(femaleUser) {
+    console.log(femaleUser);
+  } );
+});
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
