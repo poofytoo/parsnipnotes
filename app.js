@@ -6,7 +6,7 @@
 var express = require('express')
   , routes = require('./routes')
   , user = require('./routes/user')
-  , normRoutes = require('./routes/norm')
+  , normRoutes = require('./routes/norm') // Used for my testing purposes
   , http = require('http')
   , path = require('path')
   , gk = require('./gatekeeper');
@@ -16,8 +16,6 @@ var collections = ["chunks"]
 var db = require("mongojs").connect(databaseUrl, collections);
 
 var app = express();
-
-var io = require('socket.io').listen(app);
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
@@ -41,6 +39,7 @@ app.get('/', routes.index);
 app.get('/users', user.list);
 app.get('/norm/:page', normRoutes.pages)
 
+/*
 db.chunks.save({email: "srirangan@gmail.com", password: "iLoveMongo", sex: "male"}, function(err, saved) {
   if( err || !saved ) console.log("User not saved");
   else console.log("User saved");
@@ -52,11 +51,14 @@ db.chunks.find({sex: "male"}, function(err, users) {
     console.log(femaleUser);
   } );
 });
+*/
+
+var server = http.createServer(app).listen(app.get('port'), function(){
+  console.log("Express server listening on port " + app.get('port'));
+});
+
+var io = require('socket.io').listen(server);
 
 io.sockets.on('connection', function (socket) {
   socket.emit('test', {hello: 'world'});
-});
-
-http.createServer(app).listen(app.get('port'), function(){
-  console.log("Express server listening on port " + app.get('port'));
 });
