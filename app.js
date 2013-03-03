@@ -6,6 +6,7 @@
 var express = require('express')
   , routes = require('./routes')
   , user = require('./routes/user')
+  , normRoutes = require('./routes/norm')
   , http = require('http')
   , path = require('path')
   , gk = require('./gatekeeper');
@@ -38,6 +39,7 @@ app.configure('development', function(){
 
 app.get('/', routes.index);
 app.get('/users', user.list);
+app.get('/norm/:page', normRoutes.pages)
 
 db.chunks.save({email: "srirangan@gmail.com", password: "iLoveMongo", sex: "male"}, function(err, saved) {
   if( err || !saved ) console.log("User not saved");
