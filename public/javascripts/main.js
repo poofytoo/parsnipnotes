@@ -1,21 +1,49 @@
 (function($){
 
-  var Chunk = Backbone.Model.extend({
+  var Chunk = Backbone.Model.extend();
 
+  var Chunks = Backbone.Collection.extend({
+    model: Chunk,
+    url: "/javascripts/temp.json",
+    initialize: function(){
+      console.log("start chunks!");
+    }
   });
-  
-  var ChunkView = Backbone.View.extend({
+
+  var ChunksView = Backbone.View.extend({
     el: $('body'),
+
+    events: {
+      'click button#update': 'updateChunks'
+    },
 
     initialize: function(){
       _.bindAll(this, 'render');
-      this.render();
+
+      this.collection = new Chunks();
+      this.collection.bind("reset", this.render, this);
+      this.collection.bind("change", this.render, this);
+      this.collection.fetch();
+
     },
 
     render: function(){
-      $(this.el).append("<ul> <li>hello world</li> </ul>");
+      var self = this;
+      $(this.el).append("<button id='update'>Go Content!</button>");
+
+      console.log("render!");
+      console.log(this.collection);
+      console.log(this.collection.toJSON());
+    },
+
+    updateChunks: function(){
+      console.log('button');
+      this.collection.fetch();
     }
+
   });
-  var chunkView = new ChunkView();
+
+  var chunksView = new ChunksView();
+
 })(jQuery);
 
