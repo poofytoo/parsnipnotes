@@ -6,7 +6,6 @@
     model: Chunk,
     url: "/javascripts/temp.json",
     initialize: function(){
-      console.log("start chunks!");
     }
   });
 
@@ -29,11 +28,17 @@
 
     render: function(){
       var self = this;
-      $(this.el).append("<button id='update'>Go Content!</button>");
+      var html = "";
 
-      console.log("render!");
-      console.log(this.collection);
-      console.log(this.collection.toJSON());
+      //html += "<button id='update'>Go Content!</button>";
+
+      _.each(this.collection.models, function(item){
+          title = item.attributes['title'];
+          text = item.attributes['chunkText'];
+          html += "<h1>"+title+"</h1><p>"+text+"</p>"
+      });
+
+      $(this.el).html(html);
     },
 
     updateChunks: function(){
