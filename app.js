@@ -7,13 +7,16 @@ var express = require('express')
   , routes = require('./routes')
   , user = require('./routes/user')
   , http = require('http')
-  , path = require('path');
+  , path = require('path')
+  , gk = require('./gatekeeper');
   
 var databaseUrl = "localhost";
 var collections = ["chunks"]
 var db = require("mongojs").connect(databaseUrl, collections);
 
 var app = express();
+
+var io = require('socket.io').listen(app);
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
@@ -46,6 +49,10 @@ db.chunks.find({sex: "male"}, function(err, users) {
   else users.forEach( function(femaleUser) {
     console.log(femaleUser);
   } );
+});
+
+io.sockets.on('connection', function (socket) {
+  socket.emit('test', {hello: 'world'});
 });
 
 http.createServer(app).listen(app.get('port'), function(){
