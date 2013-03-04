@@ -5,12 +5,19 @@
  *  _id: "/owner/folder/file"
  *  
  *  // Data Entries
- *  subtrees: [ tree array ] http://gajon.org/trees-linked-lists-common-lisp/
+ *  children: [ tree structure ]
  *  title: "myTitle"
  *  content: "this is a great content!"
- *  nodeLevel: 0 (chunk), 3 (section/chapter), 6 (unit), 9 (class/book/packet)
+ *  nodeLevel: 0 (chunk), 3 (section/chapter), 6 (unit), 9 (class/book/packet) // Not implemented
  *
  *  // Other Stuff
+ *}
+ *
+ *tree:
+ *{
+ *  _id: id of child
+ *  nodeLevel: same // Not implemented
+ *  children: [ tree structure ]
  *}
  */
 
@@ -32,108 +39,100 @@ db.chunks.find({sex: "male"}, function(err, users) {
 });
 */
 
-function _addSibling(rootArray, leaf) {
-  // This loops to the last sibling
-  while (rootArray[1]) rootArray = rootArray[1];
-  rootArray[1] = [[leaf]];
-  return rootArray;
-}
-
-exports.addLinearChild = function(root, leafArray, where) {
+exports.addLinearChildren = function(root, leafArray, where) {
   // Construct the tree
   db.nodes.findOne({_id:root}, function (err, node) {
     if (err || !node) {
       console.log("Could not find: " + root);
     } else {
-      // Construct the tree
-      if (node.subtrees) {
-        root = [[root,node.subtrees]];
-      } else {
-        root = [[root]];
-      }
       
-      var branch = root;
-      // This may or may not be a goto statement.
-      outer_loop: while (where) {
-        var subtree = root;
-        while (subtree) {
-          var sibling = subtree;
-          while (sibling) {
-            if (where === sibling[0][0]) {
-              branch = sibling;
-              break outer_loop;
+      var branch;
+      
+      if (where && root !== where) {
+        var curr = [node];
+        
+        search_loop: while (curr.length) {
+          // Do a depth-first search, since most trees will be linear
+          var test = curr.pop();
+          console.log(test);
+          for (var i = test.children.length; --i >= 0; ) {
+            if (test.children[i]._id === where) {
+              branch = test.children[i];
+              break search_loop;
+            } else {
+              if (test.children[i].children.length > 0) {
+                curr.push(test.children[i]);
+              }
             }
           }
         }
         
-        console.log("Could not find " + where);
-        return;
+        if (!branch) {
+          console.log("Could not find " + where);
+          return;
+        }
+      } else {
+        branch = node;
       }
       
       for (var i in leafArray) {
-        if (branch[0][1]) {
-          branch = _addSibling(branch[0][1], leafArray[i]);
-        } else {
-          branch[0][1] = [[leafArray[i]]];
-          branch = branch[0][1];
-        }
+        var leaf = {_id:leafArray[i], children:[]};
+        branch.children.push(leaf);
+        branch = leaf;
       }
       
-      db.nodes.update({_id:root[0][0]}, {$set: {subtrees: root[0][1]}});
+      db.nodes.update({_id:root}, {$set: {children: node.children}});
     }
   });
 }
 
-function _linearizeNode(root, ret, callback) {
+/**
+ *flattenNode takes a node array then returns the linearized version. Only
+ *primary children are expanded and no formatting is kept.
+ */
+exports.linearizeNode = function(root, callback) {
   db.nodes.findOne({_id:root}, function (err, node) {
     if (err || !node) {
       console.log("Could not find: " + root);
       callback();
     } else {
-      var subtree = node.subtrees;
-      ret.val += node.title + "\n" + node.content;
+      var ret = node.title + "\n" + node.content;
       
-      if (subtree) {
-        // Flatten the tree
-        var flatten = [subtree[0][0]];
-        while (subtree[0][1]) {
-          subtree = subtree[0][1];
-          flatten.push(subtree[0][0]);
+      if (node.children.length > 0) {
+        var flatten = [node.children[0]._id];
+        var branch = node;
+        while (branch.children.length > 0) {
+          branch = branch.children[0];
+          flatten.push(branch._id);
         }
+        console.log(flatten);
         
         db.nodes.find({_id:{$in: flatten}}, function (err, nodes) {
           if (err || !nodes) {
             console.log("no nodes found");
           } else {
             nodes.forEach(function (node) {
-              ret.val += node.title + "\n" + node.content;
+              ret += node.title + "\n" + node.content;
             });
-            callback(ret.val);
+            callback(ret);
           }
         });
       } else {
-        callback(ret.val);
+        callback(ret);
       }
     }
   });
 }
-/**
- *flattenNode takes a node array then returns the linearized version. Only
- *primary children are expanded and no formatting is kept.
- */
-exports.linearizeNode = function(root, callback) {
-  _linearizeNode(root, {val: ""}, callback);
-}
 
 exports.addNode = function(id, title, content) {
-  db.nodes.save({_id: id, title: title, content: content}, function(err, saved) {
+  db.nodes.save({_id: id, title: title, content: content, children: []}, function(err, saved) {
     if( err || !saved ) console.log("Node not saved");
     else console.log("Node saved");
   });
 }
 
 /**
- *packNode takes a node array 
+ *packNode takes a node array and flattens it into a tree recursively
  */
 exports.packNode = function(nodes) {
   //
