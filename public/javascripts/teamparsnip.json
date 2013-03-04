@@ -9,7 +9,7 @@
     "id": 2,
     "level": 1,
     "title": "Norman",
-    "chunkText": "He understands [[server]] uptime."
+    "chunkText": "He understands [[server | server]] uptime."
   },
   {
     "id": 3,

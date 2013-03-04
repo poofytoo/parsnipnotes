@@ -9,11 +9,8 @@ var express = require('express')
   , normRoutes = require('./routes/norm') // Used for my testing purposes
   , http = require('http')
   , path = require('path')
-  , gk = require('./gatekeeper');
-  
-var databaseUrl = "parsnip";
-var collections = ["nodes"]
-var db = require("mongojs").connect(databaseUrl, collections);
+  , gk = require('./gatekeeper')
+  , repl = require("repl"); // Used to make a REPL;
 
 var app = express();
 
@@ -41,19 +38,7 @@ app.get('/', routes.index);
 app.get('/users', user.list);
 app.get('/norm/:page', normRoutes.pages)
 
-/*
-db.chunks.save({email: "srirangan@gmail.com", password: "iLoveMongo", sex: "male"}, function(err, saved) {
-  if( err || !saved ) console.log("User not saved");
-  else console.log("User saved");
-});
 
-db.chunks.find({sex: "male"}, function(err, users) {
-  if( err || !users) console.log("No male users found");
-  else users.forEach( function(femaleUser) {
-    console.log(femaleUser);
-  } );
-});
-*/
 
 var server = http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
@@ -76,3 +61,10 @@ io.sockets.on('connection', function (socket) {
   socket.emit('handshake', {hello: 'world'});
 });
 */
+
+repl.start({
+  prompt: "node via stdin> ",
+  input: process.stdin,
+  output: process.stdout,
+  useGlobal: true
+});
