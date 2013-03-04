@@ -1,16 +1,19 @@
 [
   {
     "id": 1, 
+    "level": 1,
     "title": "Team Parsnip",
-    "chunkText": "A group of very handsome individuals."
+    "chunkText": "A group of very handsome individuals, such as [[Norman]]"
   }, 
   {
     "id": 2,
+    "level": 2,
     "title": "Norman",
     "chunkText": "He understands server uptime."
   }, 
   {
     "id": 3,
+    "level": 2,
     "title": "Victor",
     "chunkText": "Was born at a very young age."
   }

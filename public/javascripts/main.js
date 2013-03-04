@@ -1,10 +1,19 @@
 (function($){
 
-  var Chunk = Backbone.Model.extend();
+  var Chunk = Backbone.Model.extend({
+
+    initialize: function(){
+      this.level = this.attributes['level'];
+      this.title = this.attributes['title'];
+      this.text = this.attributes['chunkText'];
+    }
+  });
 
   var Chunks = Backbone.Collection.extend({
     model: Chunk,
-    url: "/javascripts/temp.json",
+    url: function(){
+      return "/javascripts/temp.json";
+    },
     initialize: function(){
     }
   });
@@ -33,12 +42,15 @@
       //html += "<button id='update'>Go Content!</button>";
 
       _.each(this.collection.models, function(item){
-          title = item.attributes['title'];
-          text = item.attributes['chunkText'];
-          html += "<h1>"+title+"</h1><p>"+text+"</p>"
+          html += "<h1>"+item.title + "</h1><p>"+self.parseLinks(item.text)+" ("+item.level+")</p>"
       });
 
       $(this.el).html(html);
+    },
+
+    parseLinks: function(chunkText){
+      output = chunkText.replace(/\[\[(.*?)\]\]/g,"<a href='#'>$1</a>");
+      return output;
     },
 
     updateChunks: function(){
