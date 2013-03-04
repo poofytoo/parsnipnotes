@@ -1,10 +1,5 @@
 (function($){
 
-  //console.log(packName);
-  function initVariables(){
-
-  }
-
   var Chunk = Backbone.Model.extend({
 
     initialize: function(){
@@ -21,13 +16,11 @@
         packName = "teamparsnip";
       }
       return "/javascripts/"+packName+".json";
-    },
-    initialize: function(){
     }
   });
 
   var ChunksView = Backbone.View.extend({
-    el: $('body'),
+    el: $('#note-panel'),
 
     events: {
       'click button#update' : 'updateChunks',
