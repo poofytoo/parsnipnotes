@@ -28,4 +28,24 @@ a {
 	background-image: url("logo.png");
 	background-repeat: no-repeat;
 	height: 40px;
+	width: 160px;
+	float: left;
+}
+.profile-options{
+	float: right;
+}
+.profile-option-button{
+	height: 40px;
+	width: 40px;
+	background-color: rgba(0,0,0,0.1);
+	float: right;
+	margin-left: 5px;
+}
+
+#content{
+
+}
+
+#note-panel{
+	padding: 50px;
 }
