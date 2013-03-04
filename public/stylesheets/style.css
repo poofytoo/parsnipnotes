@@ -1,5 +1,4 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -17,4 +16,16 @@ p{
 a {
   color: #00B7FF;
   cursor: pointer;
+}
+
+#header{
+	height: 40px;
+	background-color:#FFEED9;
+	background-image: url("headerbar.png");
+}
+
+#logo{
+	background-image: url("logo.png");
+	background-repeat: no-repeat;
+	height: 40px;
 }
