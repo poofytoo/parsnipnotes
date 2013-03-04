@@ -11,8 +11,8 @@ var express = require('express')
   , path = require('path')
   , gk = require('./gatekeeper');
   
-var databaseUrl = "localhost";
-var collections = ["chunks"]
+var databaseUrl = "parsnip";
+var collections = ["nodes"]
 var db = require("mongojs").connect(databaseUrl, collections);
 
 var app = express();
@@ -59,8 +59,20 @@ var server = http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
 
+/*
 var io = require('socket.io').listen(server);
 
 io.sockets.on('connection', function (socket) {
-  socket.emit('test', {hello: 'world'});
+  socket.on('addNode', function (data) {
+    //
+  });
+  
+  socket.on('rawQueryNodes', function(data) {
+    db.chunks.find(data, function (err, nodes) {
+      socket.emit('rawQueryNodesRes', nodes);
+    });
+  });
+  
+  socket.emit('handshake', {hello: 'world'});
 });
+*/

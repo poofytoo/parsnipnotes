@@ -1,8 +1,17 @@
 [
   {
-    "id": 2,
-    "level": 0,
-    "title": "Norman",
-    "chunkText": "He understands [[server]] uptime. He's a pretty standard person. Good thing he's on [[teamparsnip]]"
+    // Frontend side
+    "id": 2, // Random
+    "packLevel": 0, // 0 is root
+    
+    // Shared frontend/backend
+    "nodeLevel": 0, // Approx size: 0 (chunk), 3 (section), 6 (unit), 9 (class/book), 12 (topic)
+    "type": "aside",
+    // 'example', 'walkthrough', 'definition', 'proof',
+    // 'overview', 'application', 'aside', 'collection', 'article', 'search'
+    "header": "",
+    "content": "He understands [[server]] uptime. He's a pretty standard person. Good thing he's on [[teamparsnip]]"
+    
+    // Internal backend data
   }
 ]
