@@ -35,6 +35,8 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
+app.get('/:packName', routes.index);
+
 app.get('/', routes.index);
 app.get('/users', user.list);
 app.get('/norm/:page', normRoutes.pages)

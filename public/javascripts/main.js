@@ -1,5 +1,10 @@
 (function($){
 
+  //console.log(packName);
+  function initVariables(){
+
+  }
+
   var Chunk = Backbone.Model.extend({
 
     initialize: function(){
@@ -12,7 +17,7 @@
   var Chunks = Backbone.Collection.extend({
     model: Chunk,
     url: function(){
-      return "/javascripts/temp.json";
+      return "/javascripts/"+packName+".json";
     },
     initialize: function(){
     }
@@ -38,7 +43,6 @@
     render: function(){
       var self = this;
       var html = "";
-
       //html += "<button id='update'>Go Content!</button>";
 
       _.each(this.collection.models, function(item){
@@ -49,7 +53,7 @@
     },
 
     parseLinks: function(chunkText){
-      output = chunkText.replace(/\[\[(.*?)\]\]/g,"<a href='#'>$1</a>");
+      output = chunkText.replace(/\[\[(.*?)\]\]/g,"<a href='$1'>$1</a>");
       return output;
     },
 
