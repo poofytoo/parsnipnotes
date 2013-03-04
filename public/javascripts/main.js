@@ -17,6 +17,9 @@
   var Chunks = Backbone.Collection.extend({
     model: Chunk,
     url: function(){
+      if (packName == "undefined"){
+        packName = "teamparsnip";
+      }
       return "/javascripts/"+packName+".json";
     },
     initialize: function(){
@@ -27,7 +30,8 @@
     el: $('body'),
 
     events: {
-      'click button#update': 'updateChunks'
+      'click button#update' : 'updateChunks',
+      'click a.linkBtn'     : 'reloadChunk'
     },
 
     initialize: function(){
@@ -53,12 +57,17 @@
     },
 
     parseLinks: function(chunkText){
-      output = chunkText.replace(/\[\[(.*?)\]\]/g,"<a href='$1'>$1</a>");
+      output = chunkText.replace(/\[\[(.*?)\]\]/g,"<a class='linkBtn' title='$1'>$1</a>");
       return output;
     },
 
     updateChunks: function(){
       console.log('button');
+      this.collection.fetch();
+    },
+
+    reloadChunk: function(events){
+      packName = events.currentTarget.title;
       this.collection.fetch();
     }
 
