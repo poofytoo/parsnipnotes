@@ -5,22 +5,19 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
     
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
     <script>
-      
-      $('#header').keypress(function (event) {
-        if (event.keyCode == 13) {
-          var header = $('#header').val();
-          
-        }
-      });
+      function submitButton() {
+        alert('hello world!');
+      }
     </script>
   </head>
   <body>
-    Header: <input type="text" name="header" /><br/>
-    Node Level: <input type="text" name="level" /><br/>
-    Topology: <input type="text" name="topology" /><br/>
-    Connections:<br/><textarea rows="4" cols="50" name="connections"></textarea><br/>
-    Text:<br/><textarea rows="25" cols="80" name="content"></textarea>
+    Header: <input type="text" id="header" /><br/>
+    Node Level: <input type="text" id="level" /><br/>
+    Content:<br/><textarea rows="25" cols="80" id="content"></textarea><br/>
+    
+    <input id="submit" type="button" onClick="submitButton()" value="Submit"/>
+    
+    <div id="output"></div>
   </body>
 </html>

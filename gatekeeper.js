@@ -279,9 +279,10 @@ exports.testPack = function() {
 }
 
 exports.addData = function() {
+  var lorem="Lorem ipsum dolor sit [[5a]] amet, consectetur adipisicing elit, [[2a]] do eiusmod [[2f]] tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure [[1b]] dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur [[3d]] sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
   db.nodes.find({}, function(err, nodes) {
     nodes.forEach(function (node) {
-      exports.updateNode(node._id, {title: node._id+"header", content: node._id+"content"});
+      exports.updateNode(node._id, {title: node._id+" - header", content: lorem+"[[1a]]"});
     });
   });
 }
