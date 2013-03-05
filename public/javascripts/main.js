@@ -24,7 +24,6 @@
 
     events: {
       'click button#update' : 'updateChunks',
-      'click a.linkBtn'     : 'reloadChunk'
     },
 
     initialize: function(){
@@ -51,7 +50,7 @@
     },
 
     parseLinks: function(chunkText){
-      output = chunkText.replace(/\[\[(.*?)\]\]/g,"<a class='linkBtn' title='$1' href='#$1'>$1</a>");
+      output = chunkText.replace(/\[\[(.*?)\]\]/g,"<a class='linkBtn' href='#$1'>$1</a>");
       return output;
     },
 
@@ -61,8 +60,8 @@
     },
 
     reloadChunk: function(events){
-      packName = events.currentTarget.title;
-      this.collection.fetch();
+      //packName = events.currentTarget.title;
+      //this.collection.fetch();
     }
 
   });
@@ -87,4 +86,3 @@
 
 
 })(jQuery);
-
