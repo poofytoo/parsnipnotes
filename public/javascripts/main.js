@@ -15,7 +15,7 @@
       if (packName == "undefined"){
         packName = "teamparsnip";
       }
-      return "/javascripts/"+packName+".json";
+      return "/_gatekeeper/byID.json?packName="+packName;
     }
   });
 

@@ -34,9 +34,11 @@ app.configure('development', function(){
 
 app.get('/:packName', routes.index);
 
+app.get('/_gatekeeper/byID.json', routes.packByID);
+
 app.get('/', routes.index);
 app.get('/users', user.list);
-app.get('/norm/:page', normRoutes.pages)
+app.get('/_norm/:page', normRoutes.pages)
 
 
 
