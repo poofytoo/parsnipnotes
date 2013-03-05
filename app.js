@@ -65,6 +65,5 @@ io.sockets.on('connection', function (socket) {
 repl.start({
   prompt: "node via stdin> ",
   input: process.stdin,
-  output: process.stdout,
-  useGlobal: true
+  output: process.stdout
 });
