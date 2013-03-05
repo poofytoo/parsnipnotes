@@ -1,16 +1,12 @@
-(function($){
+
 
   // Toggles DEBUGGING in the console
   var debug = true;
 
-  // Model for a Chunk, the smallest unit of content
-  var Chunk = Backbone.Model.extend({
-    initialize: function(){
-      this.level = this.attributes['packLevel'];
-      this.title = this.attributes['title'];
-      this.text = this.attributes['content'];
-    }
-  });
+  // model/CHUNK.JS
+  require(["underscore", "backbone", "models/chunk"], function(util) {
+    console.log('loaded!');
+
 
   // Collection of Chunks, or a pack - more commonly accessed form of content
   var Chunks = Backbone.Collection.extend({
@@ -89,4 +85,4 @@
 
 appView = new AppView();
 
-})(jQuery);
+  });
