@@ -39,43 +39,93 @@ a {
 }
 
 .profile-option-button{
-	background-color: rgba(0,0,0,0.05);
 	height: 20px;
 	min-width: 10px;
 	float: left;
 	margin-left: 5px;
 	line-height: 20px;
-	padding: 10px 15px;
-	color: rgba(0,0,0,0.9);
+	color: rgba(255,255,255,0.8);
 	font-size: 1.1em;
-	text-shadow: 0px -1px 0px #fff;
-	filter: dropshadow(color=#fff, offx=0, offy=-1);
+	padding: 6px 14px 6px 6px;
 }
 
 .profile-option-button:hover{
 	cursor: pointer;
-	background-color: rgba(0,0,0,0.1);
 }
 #content{
 
 }
 
 #main-panel{
-	width: 80%;
+	width: calc(100% - 300px);
+	width: -webkit-calc(100% - 300px);
 	float: left;
 }
+
+/* MAIN CONTENT PANE */
 #note-panel{
 	padding: 50px;
 }
+
+/* SIDEBAR */
 #note-list{
-	background-color: #eeeeee;
-	border-left: 2px #1f0e00 solid;
-	height: 500px;
-	padding: 20px;
-	width: calc(20% - 42px);
-	width: -webkit-calc(20% - 4ck2px);
+	background-color: #f8f8f8;
+	border-left: 1px #e6e6e6 solid;
+	height: 600px;
+	width: 299px;
 	float: right;
 }
+#note-list ul{
+}
+#note-list ul li.list-head{
+	font-size: 0.8em;
+	padding: 8px;
+	line-height: 12px;
+}
+#note-list ul li.list-head #add-item{
+	background-color: #f1f1f1;
+	border-left: 1px solid #dbd9d5;
+	color: #a8a8a8;
+	padding: 8px;
+	line-height: 12px;
+	width: 12px;
+	text-align: center;
+	float: right;
+	position: relative;
+	top: -8px;
+	left: 8px;
+}
+#note-list ul li.list-head #add-item:hover{
+	background-color: #e7e7e7;
+	cursor: pointer;
+}
+#note-list ul li.list-topic{
+	padding: 4px 8px;
+	color: rgba(0,0,0,0.7);
+	border-top: #daedef 1px solid;
+	background-image: url("list-topic-bg.png");
+}
+#note-list ul li.list-item{
+	border-bottom: #eaeaea 1px solid;
+	padding: 6px 16px;
+}
+#note-list ul li.list-item:hover{
+	background-color: #f1f1f1;
+	cursor: pointer;
+}
+#note-list ul li.list-newitem{
+	border-bottom: #eaeaea 1px solid;
+	font-size: 0.9em;
+	color: rgba(0,0,0,0.3);
+	padding: 4px 16px;
+	margin-bottom: 10px;
+}
+#note-list ul li.list-newitem:hover{
+	background-color: #f1f1f1;
+	cursor: pointer;
+}
+
+/* SEARCH BAR */
 #search-bar{
 	background-color: #e6e6e6;
 	width: 100%;
@@ -84,6 +134,8 @@ a {
 	border: 1px solid #9fd3d6;
 }
 #search{
+	background-image: url('search-bg.png');
+	background-repeat: no-repeat;
 	font-family: inherit;
 	font-size: 1.1em;
 	outline: none;
@@ -92,8 +144,9 @@ a {
 	margin: 7px;
 	-webkit-border-radius: 16px;
 	border-radius: 16px;
-	padding: 3px 10px;
-	width: 500px;
+	padding: 3px 10px 3px 26px;
+	width: calc(100% - 150px);
+	width: -webkit-calc(100% - 150px);
 	-webkit-box-shadow: inset 1px 1px 3px 0px rgba(0, 0, 0, 0.5);
 	box-shadow: inset 1px 1px 3px 0px rgba(0, 0, 0, 0.5);
 }
@@ -134,7 +187,7 @@ a {
 	border-radius:6px;
 	border:1px solid #dba309;
 	display:inline-block;
-	color: rgba(255,255,255,0.8);
+	color: rgba(255,255,255,0.9);
 	font-family: "Lucida Grande", "Lucida Sans", Arial, sans-serif;
 	font-size:0.9em;
 	font-weight:600;
@@ -143,4 +196,9 @@ a {
 	text-shadow:0px -1px 0px rgba(0,0,0,0.3);
 	top: -1px;
 	position: relative;
+}
+
+#searchBtn:hover{
+	opacity: 0.8;
+	cursor: pointer;
 }
