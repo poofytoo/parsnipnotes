@@ -208,11 +208,43 @@ function _packNode(id, callback) {
 }
 */
 
+function _flattenTreeToArray(node, ret) {
+  ret.push(node._id);
+  for (var i in node._children) {
+    _flattenTreeToArray(node._children[i], ret);
+  }
+  return ret;
+}
+
 /**
  *Packs a node into an array by flattening its tree structure
  */
 exports.packNode = function(id, callback) {
-  //db.nodes.
+  db.nodes.findOne({_id:id}, function (err, node) {
+    if (err || !node) {
+      console.log("Can't find " + id);
+    } else {
+      var lookup = _flattenTreeToArray(node, []);
+      db.nodes.find({_id:{$in: lookup}}, function (err, sortedNodes) {
+        if (err || !sortedNodes) {
+          console.log('Could not packNode()');
+        } else {
+          var ret = [];
+          var nodes = {};
+          for (var i in sortedNodes) {
+            nodes[sortedNodes[i]._id] = sortedNodes[i];
+            sortedNodes[i].id = sortedNodes[i]._id;
+          }
+          
+          for (var i in lookup) {
+            ret.push(nodes[lookup[i]]);
+          }
+          
+          callback(ret);
+        }
+      });
+    }
+  });
 }
 
 exports.createData = function() {
@@ -239,4 +271,17 @@ exports.createData = function() {
 
 exports.testTree = function() {
   exports.setChildren('1a', ['2a', '3a', '3b', '2b', '2c', '3c', '4a', '5a', '2d']);
+}
+
+//gk=require('./gatekeeper')
+exports.testPack = function() {
+  exports.packNode('1a', console.log);
+}
+
+exports.addData = function() {
+  db.nodes.find({}, function(err, nodes) {
+    nodes.forEach(function (node) {
+      exports.updateNode(node._id, {title: node._id+"header", content: node._id+"content"});
+    });
+  });
 }
