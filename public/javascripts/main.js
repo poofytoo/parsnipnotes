@@ -3,9 +3,9 @@
   var Chunk = Backbone.Model.extend({
 
     initialize: function(){
-      this.level = this.attributes['level'];
+      this.level = this.attributes['packLevel'];
       this.title = this.attributes['title'];
-      this.text = this.attributes['chunkText'];
+      this.text = this.attributes['content'];
     }
   });
 
@@ -35,6 +35,7 @@
       this.collection.bind("change", this.render, this);
       this.collection.fetch();
 
+
     },
 
     render: function(){
@@ -50,7 +51,7 @@
     },
 
     parseLinks: function(chunkText){
-      output = chunkText.replace(/\[\[(.*?)\]\]/g,"<a class='linkBtn' title='$1'>$1</a>");
+      output = chunkText.replace(/\[\[(.*?)\]\]/g,"<a class='linkBtn' title='$1' href='#$1'>$1</a>");
       return output;
     },
 
@@ -66,7 +67,24 @@
 
   });
 
-  var chunksView = new ChunksView();
+  var PackRouter = Backbone.Router.extend({
+    routes: {
+      ":query":               "search",  // #kiwis
+    },
+    initialize: function() {
+      this.chunksView = new ChunksView();
+    },
+    search: function(query){
+      packName = query;
+      this.chunksView.updateChunks();
+    },
+
+  });
+
+  var packRouter = new PackRouter();
+
+  Backbone.history.start();
+
 
 })(jQuery);
 

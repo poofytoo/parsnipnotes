@@ -1,8 +1,8 @@
 [
   {
     "id": 2,
-    "level": 0,
+    "packLevel": 0,
     "title": "Server",
-    "chunkText": "We don't have servers. [[Norman]] knows something about servers."
+    "content": "We don't have servers. [[Norman]] knows something about servers."
   }
 ]
