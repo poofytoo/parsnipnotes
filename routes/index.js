@@ -6,11 +6,18 @@
 var gk = require('../gatekeeper');
 
 exports.index = function(req, res){
-  res.render('main', { title: 'Express', packName: req.params.packName });
+  res.render('main', { title: 'Express', packName: req.params.packName, userName: req.params.userName });
 };
 
 exports.packByID = function(req, res) {
-  gk.packNode(req.query.packName, function(obj) {
-    res.json(obj);
-  });
+  if (req.query.minLevel) {
+    gk.packNode(req.query.packName, parseInt(req.query.minLevel), function(obj) {
+      res.json(obj);
+    });
+  } else {
+    gk.packNode(req.query.packName, 0, function(obj) {
+      res.json(obj);
+    });
+  }
+  
 }
