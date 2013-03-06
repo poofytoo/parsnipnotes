@@ -10,12 +10,14 @@ require(["underscore", "backbone", "views/chunks", "views/packlist"], function(u
     routes: {
       ":query":               "search",  // #kiwis
     },
-    initialize: function(chunksView) {
-      this.chunksView = chunksView;
+    initialize: function(c, p) {
+      this.chunksView = c;
+      this.packlistView = p;
     },
     search: function(query){
       packName = query;
       this.chunksView.updateChunks();
+      this.packlistView.render();
     },
 
   });
@@ -25,8 +27,8 @@ require(["underscore", "backbone", "views/chunks", "views/packlist"], function(u
     initialize: function(){
 
       var chunksView = new ChunksView();
-      var packView = new PacklistView();
-      var packRouter = new PackRouter(chunksView);
+      var packlistView = new PacklistView();
+      var packRouter = new PackRouter(chunksView, packlistView);
 
       Backbone.history.start();
     }
