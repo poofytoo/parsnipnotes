@@ -220,9 +220,20 @@ a {
 }
 
 #search-results ul li{
-
-	background-color: rgba(252, 244, 222, 0.9);
+	background-color: rgba(252, 244, 222, 0.95);
 	border-bottom: #faebc3 solid 1px;
 	border-top: #ffffff solid 1px;
+}
+#search-results ul li a{
+	display: block;
 	padding: 10px;
+	color: inherit;
+	text-decoration: none;
+}
+#search-results ul li a:hover{
+	background-color: #ffffff;
+}
+
+span.search-item-desc{
+	color: #988c6c;
 }
