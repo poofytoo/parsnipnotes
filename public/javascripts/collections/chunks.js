@@ -6,7 +6,7 @@ define(function(require){
   var Chunks = Backbone.Collection.extend({
     model: Chunk,
     url: function(){
-      return "/_gatekeeper/byID.json?packName="+packName;
+      return "/_gatekeeper/packByID.json/"+packName;
     }
     
   });

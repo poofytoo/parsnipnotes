@@ -29,10 +29,10 @@ require(["underscore", "backbone", "views/chunks", "views/packlist","views/searc
   var AppView = Backbone.View.extend({
     initialize: function(){
 
-      var chunksView = new ChunksView();
-      var packlistView = new PacklistView();
-      var searchlistView = new SearchlistView();
-      var packRouter = new PackRouter(chunksView, packlistView);
+      this.chunksView = new ChunksView();
+      this.packlistView = new PacklistView();
+      this.searchlistView = new SearchlistView();
+      this.packRouter = new PackRouter(this.chunksView, this.packlistView);
 
       Backbone.history.start();
     }

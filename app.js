@@ -10,6 +10,7 @@ var express = require('express')
   , http = require('http')
   , path = require('path')
   , gk = require('./gatekeeper')
+  , gkRoutes = require('./routes/gkRoutes')
   , repl = require("repl"); // Used to make a REPL;
 
 var app = express();
@@ -34,7 +35,8 @@ app.configure('development', function(){
 
 
 
-app.get('/_gatekeeper/byID.json', routes.packByID);
+app.get('/_gatekeeper/packByID.json/:id', gkRoutes.packByID);
+app.put('/_gatekeeper/updateByID.json/:id', gkRoutes.updateByID);
 
 app.get('/', routes.index);
 app.get('/users', user.list);

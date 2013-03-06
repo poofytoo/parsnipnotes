@@ -6,7 +6,7 @@ define(function(require){
   var Packlist = Backbone.Collection.extend({
     model: Chunk,
     url: function(){
-      return "/_gatekeeper/byID.json?packName="+packName+"&minLevel=6";
+      return "/_gatekeeper/packByID.json/"+packName+"?minLevel=6";
     }
     
   });

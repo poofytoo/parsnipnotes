@@ -6,7 +6,9 @@ define(function(require){
       this.level = this.attributes['nodeLevel'];
       this.title = this.attributes['title'];
       this.text = this.attributes['content'];
-    }
+    },
+    
+    urlRoot: '/_gatekeeper/updateByID.json'
   });
 
   return Chunk;
