@@ -8,6 +8,6 @@ define(function(require){
       this.text = this.attributes['content'];
     }
   });
-  
+
   return Chunk;
 });

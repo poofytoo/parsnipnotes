@@ -2,7 +2,7 @@
 // Toggles DEBUGGING in the console
 var debug = true;
 
-require(["underscore", "backbone", "views/chunks"], function(u,b,ChunksView) {
+require(["underscore", "backbone", "views/chunks", "views/packlist"], function(u,b,ChunksView,PacklistView) {
   if (debug) console.log('JavaScript Libraries Loaded');
   
   // Pack Router - allowing hash tags to change between pages
@@ -25,6 +25,7 @@ require(["underscore", "backbone", "views/chunks"], function(u,b,ChunksView) {
     initialize: function(){
 
       var chunksView = new ChunksView();
+      var packView = new PacklistView();
       var packRouter = new PackRouter(chunksView);
 
       Backbone.history.start();

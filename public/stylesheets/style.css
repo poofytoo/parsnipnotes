@@ -118,7 +118,12 @@ a {
 }
 #note-list ul li.list-item{
 	border-bottom: #eaeaea 1px solid;
+}
+#note-list ul li.list-item a{
 	padding: 6px 16px;
+	display: block;
+	color: inherit;
+	text-decoration: inherit;
 }
 #note-list ul li.list-item:hover{
 	background-color: #f1f1f1;
