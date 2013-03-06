@@ -2,7 +2,10 @@
 // Toggles DEBUGGING in the console
 var debug = true;
 
-require(["underscore", "backbone", "views/chunks", "views/packlist"], function(u,b,ChunksView,PacklistView) {
+// Temporary GLOBAL Variable to ruin everything. Remove after test.
+var searchQuery = "";
+
+require(["underscore", "backbone", "views/chunks", "views/packlist","views/searchlist"], function(u,b,ChunksView,PacklistView,SearchlistView) {
   if (debug) console.log('JavaScript Libraries Loaded');
   
   // Pack Router - allowing hash tags to change between pages
@@ -28,6 +31,7 @@ require(["underscore", "backbone", "views/chunks", "views/packlist"], function(u
 
       var chunksView = new ChunksView();
       var packlistView = new PacklistView();
+      var searchlistView = new SearchlistView();
       var packRouter = new PackRouter(chunksView, packlistView);
 
       Backbone.history.start();

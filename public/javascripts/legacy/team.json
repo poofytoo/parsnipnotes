@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1, 
+    "nodeLevel": 0,
+    "title": "Team Parsnip",
+    "content": "A group of very handsome individuals, such as [[Norman]]"
+  }, 
+  {
+    "id": 2,
+    "nodeLevel": 1,
+    "title": "Team Fortress 2",
+    "content": "Way better than TF1"
+  },
+  {
+    "id": 3,
+    "nodeLevel": 1,
+    "title": "Team Meat, Mate",
+    "content": "For people who enjoys anagrams"
+  }
+]

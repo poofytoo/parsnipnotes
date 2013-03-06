@@ -19,16 +19,34 @@ define(function(require){
       if (debug) console.log("Generating Sidebar, selected: " + packName);
 
       var self = this;
+      var itemID = 0;
       var html = "<ul>";
       html += "<li class='list-head'>YOUR NOTES<div id='add-item'>+</div></li>";
-      html += "<li class='list-topic'>Norman Test</li>";
       _.each(this.collection.models, function(item){
         selected = "";
-        if (item.id == packName){
+        listClass = "list-item";
+        // node level 12 is the user. do not display this.
+        // node level 9 is the topic header
+
+        if (item.level == 12){
+          // root node
+        } else if (item.level == 9){
+          listClass="list-topic";
+          if (itemID != 1){
+            html += "<li class='list-newitem'>+ new notes</li>";
+          }
+        } else if (item.id == packName){
           selected = " list-item-selected";
+        } 
+
+        if (item.level != 12){
+          html += "<li class='" + listClass + " " + selected + "'><a href='#" + item.id + "'>" + item.title + "</a></li>"
         }
-        html += "<li class='list-item" + selected + "'><a href='#" + item.id + "'>" + item.title + "</a></li>"
+
+        itemID ++;
       });
+      
+      html += "<li class='list-newitem'>+ new notes</li>";
       html += "</ul>";
 
       $(this.el).html(html);
