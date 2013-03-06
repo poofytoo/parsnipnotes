@@ -7,7 +7,7 @@
  *  // Data Entries
  *  title: "myTitle"
  *  content: "this is a great content!"
- *  nodeLevel: 0 (chunk), 3 (section/chapter), 6 (unit), 9 (class/book/packet)
+ *  nodeLevel: 0 (chunk), 3 (section/chapter), 6 (unit), 9 (class/book/packet), 12 (user)
  *  _children: [ tree structure ]
  *
  *  // Other Stuff
@@ -208,10 +208,12 @@ function _packNode(id, callback) {
 }
 */
 
-function _flattenTreeToArray(node, ret) {
-  ret.push(node._id);
-  for (var i in node._children) {
-    _flattenTreeToArray(node._children[i], ret);
+function _flattenTreeToArray(node, minLevel, ret) {
+  if (node.nodeLevel >= minLevel) {
+    ret.push(node._id);
+    for (var i in node._children) {
+      _flattenTreeToArray(node._children[i], minLevel, ret);
+    }
   }
   return ret;
 }
@@ -219,24 +221,27 @@ function _flattenTreeToArray(node, ret) {
 /**
  *Packs a node into an array by flattening its tree structure
  */
-exports.packNode = function(id, callback) {
+exports.packNode = function(id, minLevel, callback) {
   db.nodes.findOne({_id:id}, function (err, node) {
     if (err || !node) {
       console.log("Can't find " + id);
     } else {
-      var lookup = _flattenTreeToArray(node, []);
+      var lookup = _flattenTreeToArray(node, minLevel, []);
+      
       db.nodes.find({_id:{$in: lookup}}, function (err, sortedNodes) {
         if (err || !sortedNodes) {
           console.log('Could not packNode()');
         } else {
           var ret = [];
           var nodes = {};
+          
           for (var i in sortedNodes) {
             nodes[sortedNodes[i]._id] = sortedNodes[i];
             sortedNodes[i].id = sortedNodes[i]._id;
           }
           
           for (var i in lookup) {
+            delete nodes[lookup[i]]._children;
             ret.push(nodes[lookup[i]]);
           }
           
@@ -275,7 +280,7 @@ exports.testTree = function() {
 
 //gk=require('./gatekeeper')
 exports.testPack = function() {
-  exports.packNode('1a', console.log);
+  exports.packNode('1a', 0, console.log);
 }
 
 exports.addData = function() {

@@ -32,7 +32,7 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-app.get('/:packName', routes.index);
+
 
 app.get('/_gatekeeper/byID.json', routes.packByID);
 
@@ -40,7 +40,7 @@ app.get('/', routes.index);
 app.get('/users', user.list);
 app.get('/_norm/:page', normRoutes.pages)
 
-
+app.get('/:userName/:packName', routes.index);
 
 var server = http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
