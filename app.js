@@ -41,6 +41,7 @@ app.get('/users', user.list);
 app.get('/_norm/:page', normRoutes.pages)
 
 app.get('/nb/:userName/:packName', routes.index);
+app.get('/graph/:userName/:packName', routes.graph);
 
 var server = http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
