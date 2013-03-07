@@ -4,17 +4,17 @@ var debug = true;
 
 // Temporary GLOBAL Variable to ruin everything. Remove after test.
 var searchQuery = "";
-var libraries = ["underscore", 
-                  "backbone", 
+var libraries = [ "lib/underscore", 
+                  "lib/backbone", 
+                  "lib/jquery", 
+                  "lib/arbor",
                   "views/chunks", 
                   "views/packlist",
                   "views/searchlist",
-                  "views/graph"
-                  ];
+                  "views/graph"];
 
-require(libraries, function(u,b,ChunksView,PacklistView,SearchlistView,GraphView) {
+require(libraries, function(_,b,$,arbor,ChunksView,PacklistView,SearchlistView,GraphView) {
   if (debug) console.log('JavaScript Libraries Loaded');
-  
   // Pack Router - allowing hash tags to change between pages
   var PackRouter = Backbone.Router.extend({
     routes: {

@@ -19,9 +19,18 @@ define(function(require){
     render: function(){
       var self = this;
       var html = "";
+      var itemNumber = 0;
 
       _.each(this.collection.models, function(item){
-          html += "<h1>"+item.title + "</h1><p>"+self.parseLinks(item.text)+" ("+item.level+")</p>"
+          if (item.level == 12 || itemNumber == 0){
+            headerOpen = "<h1>";
+            headerClose = "</h1>";
+          } else {
+            headerOpen = "<h2>";
+            headerClose = "</h2>";
+          }
+          itemNumber ++;
+          html += headerOpen +item.title + headerClose + "<p>"+self.parseLinks(item.text)+" ("+item.level+")</p>"
       });
 
       $(this.el).html(html);
