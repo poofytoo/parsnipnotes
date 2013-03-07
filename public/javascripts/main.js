@@ -46,7 +46,8 @@ var libraries = [ "underscore",
 require(libraries, function(_,b,$,arbor,tinyMCE,ChunksView,PacklistView,SearchlistView,GraphView) {
   if (debug) console.log('JavaScript Libraries Loaded');
   tinyMCE.init({
-        mode : "textareas"
+        mode : "specific_textareas",
+        editor_selector : "editable"
   });
   // Pack Router - allowing hash tags to change between pages
   var PackRouter = Backbone.Router.extend({
