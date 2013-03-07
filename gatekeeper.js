@@ -192,12 +192,16 @@ exports.setChildren = function(id, childrenIDs) {
 /**
  *Updates the fields of a node with {<key>:<value>} pairs. Please do not edit fields starting with underscores.
  */
-exports.updateNode = function(id, values) {
-  db.nodes.update({_id:id}, {$set:values});
-}
-// Note that 
-exports.createNode = function(id, nodeLevel) {
-  db.nodes.save({_id:id, nodeLevel: nodeLevel, _children:[]});
+exports.upsertNode = function(id, values, callback) {
+  db.nodes.update({_id:id}, {$set:values}, {upsert: true}, function (err, updated) {
+    if (err || !updated) {
+      console.log("Could not upsert " + id);
+    }
+    
+    if (callback) {
+      callback(err, updated);
+    }
+  });
 }
 
 /*
@@ -211,8 +215,10 @@ function _packNode(id, callback) {
 function _flattenTreeToArray(node, minLevel, ret) {
   if (node.nodeLevel >= minLevel) {
     ret.push(node._id);
-    for (var i in node._children) {
-      _flattenTreeToArray(node._children[i], minLevel, ret);
+    if (node._children) {
+      for (var i in node._children) {
+        _flattenTreeToArray(node._children[i], minLevel, ret);
+      }
     }
   }
   return ret;
@@ -281,6 +287,7 @@ exports.testTree = function() {
 //gk=require('./gatekeeper')
 exports.testPack = function() {
   exports.packNode('1a', 0, console.log);
+  upsertNode('normandy', {title:"Norman Cao"}, function(err, updated) { console.log(updated); });
 }
 
 exports.addData = function() {

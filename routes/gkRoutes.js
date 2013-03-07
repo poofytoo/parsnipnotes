@@ -15,7 +15,7 @@ exports.packByID = function(req, res) {
 }
 
 exports.updateByID = function(req, res) {
-  gk.updateNode(req.params.id, {title: req.body.title, content: req.body.content});
+  gk.upsertNode(req.params.id, {title: req.body.title, content: req.body.content, nodeLevel: req.body.nodeLevel});
   // Should really have error handling, but y'know...
   res.json({});
 }
