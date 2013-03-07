@@ -4,9 +4,9 @@
 */
 
 exports.index = function(req, res){
-  res.render('main', { title: 'Express', packName: req.params.packName, userName: req.params.userName, displayMode: 'nb' });
+  res.render('main', { title: 'Express', userName: req.user, packName: req.params.packName, bookName: req.params.bookName, displayMode: 'nb' });
 };
 
 exports.graph = function(req, res){
-  res.render('main', { title: 'Express', packName: req.params.packName, userName: req.params.userName, displayMode: 'graph' });
+  res.render('main', { title: 'Express', userName: req.user, packName: req.params.packName, bookName: req.params.bookName, displayMode: 'graph' });
 };

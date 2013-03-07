@@ -21,6 +21,9 @@ app.configure(function(){
   app.set('view engine', 'ejs');
   app.use(express.favicon());
   app.use(express.logger('dev'));
+  app.use(express.basicAuth(function (user, pass) {
+    return true;
+  }));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.cookieParser('your secret here'));
@@ -42,8 +45,8 @@ app.get('/_gatekeeper/packByID.json/:id', gkRoutes.packByID);
 app.put('/_gatekeeper/updateByID.json/:id', gkRoutes.updateByID);
 
 // These two routes go to the view
-app.get('/nb/:userName/:packName', routes.index);
-app.get('/graph/:userName/:packName', routes.graph);
+app.get('/nb/:bookName/:packName', routes.index);
+app.get('/graph/:bookName/:packName', routes.graph);
 
 // These are unused
 app.get('/', routes.index);
