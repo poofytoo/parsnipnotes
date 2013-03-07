@@ -6,9 +6,10 @@ define(function(require){
     searchEl: $("#search-results"),
     searching: false,
     events: {
-      'click input#search' : 'beginSearch',
-      'keydown input#search' : 'reloadSearch',
-      'change input#search' : 'exitSearch',
+      'click input#search'    : 'beginSearch',
+      'click'                 : 'closeSearch',
+      'keydown input#search'  : 'reloadSearch',
+      'change input#search'   : 'exitSearch',
     },
 
     initialize: function(){
@@ -31,7 +32,8 @@ define(function(require){
       $(this.searchEl).html(html);
     },
 
-    antiRender: function(){
+    closeSearch: function(){
+      $(this.searchEl).html("");
       // hold on, before writing an antiRender function, lets wake up tomorrow and see
       // if this is a good idea. Sounds like it could be hacky.
     },
@@ -44,6 +46,7 @@ define(function(require){
     beginSearch: function(){
       searching = true;
       if (debug) console.log('Start Search - ' + searching);
+      this.collection.fetch();
 
     },
 
