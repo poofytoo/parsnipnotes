@@ -4,8 +4,15 @@ var debug = true;
 
 // Temporary GLOBAL Variable to ruin everything. Remove after test.
 var searchQuery = "";
+var libraries = ["underscore", 
+                  "backbone", 
+                  "views/chunks", 
+                  "views/packlist",
+                  "views/searchlist",
+                  "views/graph"
+                  ];
 
-require(["underscore", "backbone", "views/chunks", "views/packlist","views/searchlist","views/graph"], function(u,b,ChunksView,PacklistView,SearchlistView,GraphView) {
+require(libraries, function(u,b,ChunksView,PacklistView,SearchlistView,GraphView) {
   if (debug) console.log('JavaScript Libraries Loaded');
   
   // Pack Router - allowing hash tags to change between pages
