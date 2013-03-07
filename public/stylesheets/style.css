@@ -175,8 +175,8 @@ a {
 	-webkit-border-radius: 16px;
 	border-radius: 16px;
 	padding: 3px 10px 3px 26px;
-	width: calc(100% - 150px);
-	width: -webkit-calc(100% - 150px);
+	width: calc(100% - 200px);
+	width: -webkit-calc(100% - 200px);
 	-webkit-box-shadow: inset 1px 1px 3px 0px rgba(0, 0, 0, 0.5);
 	box-shadow: inset 1px 1px 3px 0px rgba(0, 0, 0, 0.5);
 }
@@ -236,4 +236,22 @@ a {
 
 span.search-item-desc{
 	color: #988c6c;
+}
+
+#graph-button{
+	background-image: url('graphlogo.png');
+	display: block;
+	width: 40px;
+	height: 40px;
+	float: right;
+	opacity: 0.7;
+}
+#graph-button a{
+	display: block;
+	width: 40px;
+	height: 40px;
+}
+#graph-button:hover{
+	opacity: 1;
+	cursor: pointer;
 }
