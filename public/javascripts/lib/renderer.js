@@ -86,10 +86,10 @@
             ctx.strokeStyle = (color) ? color : "#cccccc"
             ctx.fillStyle = null
 
-            //sourceSize = nodeBoxes[edge.source.name][2]/2
-            //targetSize = nodeBoxes[edge.target.name][2]/2
+            sourceSize = nodeBoxes[edge.source.name.size]/2
+            sourceSize = nodeBoxes[edge.source.name.size]/2
 
-            console.log(sourceSize);
+            
             ctx.moveTo(tail.x, tail.y)
             ctx.lineTo(head.x, head.y)
             ctx.stroke()
