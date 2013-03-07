@@ -1,5 +1,10 @@
-define(function(require){  
-  var Chunks = require("collections/chunks");
+define([
+  // These are path alias that we configured in our bootstrap
+  'jquery',     // lib/jquery
+  'underscore', // lib/underscore
+  'backbone',   // lib/backbone
+  'chunks'
+], function($, _, Backbone, Chunks){ 
   var ChunksView = Backbone.View.extend({
     el: $('#note-panel'),
 
