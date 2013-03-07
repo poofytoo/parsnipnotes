@@ -9,7 +9,7 @@ define(function(require){
     },
     url: function(init){
     	console.log(searchQuery);
-      return "/javascripts/legacy/" + searchQuery;
+      return "/_seeker/search.json";
     }
     
   });

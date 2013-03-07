@@ -35,15 +35,22 @@ app.configure('development', function(){
 
 
 
+// Use this to request a pack by raw ID
 app.get('/_gatekeeper/packByID.json/:id', gkRoutes.packByID);
+
+// Use these with Chunk.save() to create/save chunks
 app.put('/_gatekeeper/updateByID.json/:id', gkRoutes.updateByID);
 
-app.get('/', routes.index);
-app.get('/users', user.list);
-app.get('/_norm/:page', normRoutes.pages)
-
+// These two routes go to the view
 app.get('/nb/:userName/:packName', routes.index);
 app.get('/graph/:userName/:packName', routes.graph);
+
+// These are unused
+app.get('/', routes.index);
+app.get('/users', user.list);
+
+// Test pages can be put here
+app.get('/_norm/:page', normRoutes.pages)
 
 var server = http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));

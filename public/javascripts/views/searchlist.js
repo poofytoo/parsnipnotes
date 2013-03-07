@@ -7,7 +7,7 @@ define(function(require){
     searching: false,
     events: {
       'click input#search' : 'beginSearch',
-      'keydown input#search' : 'reloadSearch',
+      'keyup input#search' : 'reloadSearch',
       'change input#search' : 'exitSearch',
     },
 
@@ -52,6 +52,7 @@ define(function(require){
       if (debug) console.log('Reloading Search - ' + searching);
 
       // This is terrible. Will find better solution later.
+      /*
       charAdded = "";
       if (event.keyCode > 32 && event.keyCode < 127){
         charAdded = String.fromCharCode(event.keyCode);
@@ -61,8 +62,11 @@ define(function(require){
         searchString = str.substring(0, str.length - 1);;
         searchQuery = searchString + ".json";
       }
-
-      this.collection.fetch();
+      */
+      
+      searchString = event.currentTarget.value;
+      this.collection.fetch({data: {q: searchString}});
+      
       /*
       //FUTURE CODE, THIS IS BEAUTIFUL
       //present the updated searchQuery and it will be appended to the end
