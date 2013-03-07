@@ -4,17 +4,50 @@ var debug = true;
 
 // Temporary GLOBAL Variable to ruin everything. Remove after test.
 var searchQuery = "";
-var libraries = [ "lib/underscore", 
-                  "lib/backbone", 
-                  "lib/jquery", 
-                  "lib/arbor",
+
+require.config({
+  paths: {
+    jquery: 'lib/jquery',
+    underscore: 'lib/underscore',
+    backbone: 'lib/backbone',
+    arbor: 'lib/arbor',
+    tinyMCE: 'lib/tiny_mce/tiny_mce',
+    chunks: 'collections/chunks'
+  },
+  shim: {
+    'backbone': {
+        //These script dependencies should be loaded before loading
+        //backbone.js
+        deps: ['underscore', 'jquery'],
+        //Once loaded, use the global 'Backbone' as the
+        //module value.
+        exports: 'Backbone'
+    },
+    'underscore': {
+        exports: '_'
+    },
+    'tinyMCE': {
+        deps: ['jquery'],
+        exports: 'tinyMCE'
+    }
+  }
+});
+
+var libraries = [ "underscore", 
+                  "backbone", 
+                  "jquery", 
+                  "arbor",
+                  "tinyMCE",
                   "views/chunks", 
                   "views/packlist",
                   "views/searchlist",
                   "views/graph"];
 
-require(libraries, function(_,b,$,arbor,ChunksView,PacklistView,SearchlistView,GraphView) {
+require(libraries, function(_,b,$,arbor,tinyMCE,ChunksView,PacklistView,SearchlistView,GraphView) {
   if (debug) console.log('JavaScript Libraries Loaded');
+  tinyMCE.init({
+        mode : "textareas"
+  });
   // Pack Router - allowing hash tags to change between pages
   var PackRouter = Backbone.Router.extend({
     routes: {
