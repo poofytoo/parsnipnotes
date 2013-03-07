@@ -1,5 +1,4 @@
 define(function(require){
-  var arbor = require("lib/arbor");
   var Graph = require("collections/graph");  
   var GraphView = Backbone.View.extend({
     el: $('#content'),
@@ -14,6 +13,15 @@ define(function(require){
     render: function(){
       
       $(this.el).html('<canvas id="graphport" width="800" height="600"></canvas>');
+      
+      var palette = {
+        "Africa": "#D68300",
+        "Asia": "#4D7A00",
+        "Europe": "#6D87CF",
+        "North America": "#D4E200",
+        "Oceania": "#4F2170",
+        "South America": "#CD2900"
+      }
 
       this.Renderer = function(canvas){
         canvas = $(canvas).get(0)
@@ -52,12 +60,14 @@ define(function(require){
     
                 if (!isNaN(weight)) ctx.lineWidth = weight
                 
+                /*
                 if (edge.source.data.region==edge.target.data.region){
                   ctx.strokeStyle = palette[edge.source.data.region]
                 }
+                */
                 
                 // if (color) ctx.strokeStyle = color
-                ctx.fillStyle = null
+                ctx.fillStyle = "#FF0000";
                 
                 ctx.moveTo(pt1.x, pt1.y)
                 ctx.lineTo(pt2.x, pt2.y)
