@@ -1,12 +1,14 @@
 define(function(require){  
   var Searchlist = require("collections/searchlist");
   var SearchlistView = Backbone.View.extend({
+    
+    searchString: "",
 
     el: $('#main-panel'),
     searchEl: $("#search-results"),
     searching: false,
     events: {
-      'click input#search'    : 'beginSearch',
+      'click input#search'    : 'reloadSearch',
       'click'                 : 'closeSearch',
       'keyup input#search'    : 'reloadSearch',
       'change input#search'   : 'exitSearch',
@@ -43,16 +45,7 @@ define(function(require){
       return output;
     },
 
-    beginSearch: function(){
-      searching = true;
-      if (debug) console.log('Start Search - ' + searching);
-      this.collection.fetch();
-
-    },
-
     reloadSearch: function(event){
-      if (!searching) searching = true;
-      if (debug) console.log('Reloading Search - ' + searching);
 
       // This is terrible. Will find better solution later.
       /*
@@ -67,8 +60,11 @@ define(function(require){
       }
       */
       
-      searchString = event.currentTarget.value;
-      this.collection.fetch({data: {q: searchString}});
+      if (this.searchString != event.currentTarget.value) {
+        this.searchString = event.currentTarget.value;
+        this.collection.fetch({data: {q: this.searchString}});
+      }
+      
       
       /*
       //FUTURE CODE, THIS IS BEAUTIFUL
@@ -79,9 +75,6 @@ define(function(require){
     },
 
     exitSearch: function(){
-      searching = false;
-      if (debug) console.log('Exit Search - ' + searching);
-
     },
 
   });
