@@ -31,7 +31,7 @@
           var label = node.data.label||""
           var w = ctx.measureText(""+label).width + 10*3
           node.size = w;
-          
+
           if (!(""+label).match(/^[ \t]*$/)){
             pt.x = Math.floor(pt.x)
             pt.y = Math.floor(pt.y)
@@ -86,6 +86,10 @@
             ctx.strokeStyle = (color) ? color : "#cccccc"
             ctx.fillStyle = null
 
+            //sourceSize = nodeBoxes[edge.source.name][2]/2
+            //targetSize = nodeBoxes[edge.target.name][2]/2
+
+            console.log(sourceSize);
             ctx.moveTo(tail.x, tail.y)
             ctx.lineTo(head.x, head.y)
             ctx.stroke()

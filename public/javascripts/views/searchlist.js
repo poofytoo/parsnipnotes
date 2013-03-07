@@ -70,6 +70,7 @@ define(function(require){
       //FUTURE CODE, THIS IS BEAUTIFUL
       //present the updated searchQuery and it will be appended to the end
       this.collection.fetch({data: searchQuery});
+      whatever.json?data=something
       */
     },
 
