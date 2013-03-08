@@ -90,6 +90,10 @@ require(libraries, function(_,b,$,arbor,tinyMCE,ChunksView,PacklistView,Searchli
         this.chunksView = new ChunksView();
         this.packlistView = new PacklistView();
         this.searchlistView = new SearchlistView();
+
+        // TODO (anyone) : THIS IS WRONG, lookat implementation of new CreatenotesView
+        // FIX IT
+
         this.packRouter = new PackRouter(this.chunksView, this.packlistView);
       } else {
         this.graphView = new GraphView();
