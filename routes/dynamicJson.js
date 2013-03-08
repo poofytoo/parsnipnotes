@@ -1,5 +1,5 @@
 var gk = require('../gatekeeper');
-var sk = requrie('../seeker');
+var sk = require('../seeker');
 
 exports.packByID = function(req, res) {
   // Note that if nothing is found, no response will ever be sent.
