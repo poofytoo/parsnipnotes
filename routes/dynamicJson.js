@@ -4,11 +4,11 @@ var sk = require('../seeker');
 exports.packByID = function(req, res) {
   // Note that if nothing is found, no response will ever be sent.
   if (req.query.minLevel) {
-    gk.packNode(req.params.id, parseInt(req.query.minLevel), function(obj) {
+    gk.packNode(req.query.id, parseInt(req.query.minLevel), function(obj) {
       res.json(obj);
     });
   } else {
-    gk.packNode(req.params.id, 0, function(obj) {
+    gk.packNode(req.query.id, 0, function(obj) {
       res.json(obj);
     });
   }

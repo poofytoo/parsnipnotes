@@ -39,7 +39,7 @@ app.configure('development', function(){
 
 
 // Use this to request a pack by raw ID
-app.get('/_gatekeeper/packByID.json/:id', jsroute.packByID);
+app.get('/_gatekeeper/pack/byID.json', jsroute.packByID);
 
 // Use these with Chunk.save() to create/save chunks
 app.put('/_gatekeeper/updateByID.json/:id', jsroute.updateByID);

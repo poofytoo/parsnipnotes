@@ -1,5 +1,5 @@
 define(function(require){
-  var Graph = require("collections/graph");  
+  var Graph = require("models/graph");  
   var GraphView = Backbone.View.extend({
     el: $('#content'),
 
