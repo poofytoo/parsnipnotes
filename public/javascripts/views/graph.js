@@ -5,24 +5,7 @@ define(function(require){
 
     initialize: function(){
       _.bindAll(this, 'render');
-      this.render();
-      //this.collection = new Searchlist({searchQuery:"hey"});
-      //this.collection.bind("reset", this.render, this);
-      //this.collection.fetch();
-    },
-    render: function(){
       
-      $(this.el).html('<canvas id="graphport" width="800" height="600"></canvas>');
-      
-      var palette = {
-        "Africa": "#D68300",
-        "Asia": "#4D7A00",
-        "Europe": "#6D87CF",
-        "North America": "#D4E200",
-        "Oceania": "#4F2170",
-        "South America": "#CD2900"
-      }
-
       this.Renderer = function(canvas){
         canvas = $(canvas).get(0)
         var ctx = canvas.getContext("2d")
@@ -180,6 +163,25 @@ define(function(require){
       
         return that
       }
+      
+      this.render();
+      //this.collection = new Searchlist({searchQuery:"hey"});
+      //this.collection.bind("reset", this.render, this);
+      //this.collection.fetch();
+    },
+    
+    palette: {
+      "Africa": "#D68300",
+      "Asia": "#4D7A00",
+      "Europe": "#6D87CF",
+      "North America": "#D4E200",
+      "Oceania": "#4F2170",
+      "South America": "#CD2900"
+    },
+      
+    render: function(){
+      
+      $(this.el).html('<canvas id="graphport" width="800" height="600"></canvas>');
     
       this.sys = arbor.ParticleSystem(1000, 600, 0.5) // create the system with sensible repulsion/stiffness/friction
       this.sys.parameters({gravity:true}) // use center-gravity to make the graph settle nicely (ymmv)
@@ -207,6 +209,7 @@ define(function(require){
         }
       });
       
+      return this;
     }
   });
 

@@ -1,4 +1,5 @@
 var gk = require('../gatekeeper');
+var sk = requrie('../seeker');
 
 exports.packByID = function(req, res) {
   // Note that if nothing is found, no response will ever be sent.
@@ -20,9 +21,15 @@ exports.updateByID = function(req, res) {
   res.json({});
 }
 
+exports.graphByID_shim = function(req, res) {
+  gk.graphNode_shim(req.params.id, function(obj) {
+    res.json(obj);
+  });
+}
+
 exports.searchFor = function(req, res) {
     if (req.query.q) {
-        gk.makeSearch(req.query.q, function(obj) {
+        sk.makeSearch(req.query.q, function(obj) {
             res.json(obj);
         });
     }
