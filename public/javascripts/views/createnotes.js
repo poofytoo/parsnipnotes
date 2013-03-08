@@ -6,16 +6,32 @@ define([
 ], function($, _, Backbone, Chunks){ 
   var CreatenotesView = Backbone.View.extend({
     el: $('#note-panel'),
+    events: {
+      'keyup input#new-notes-title' : 'updateSidebarTitle'
+    },
 
     initialize: function(options){
+
+      this.parseParentID(options.clicked);
       this.packlistView = options.packlistView;
-      this.packlistView.addElem();
+      this.packlistView.addElem(this.parseParentID(options.clicked));
 
       // TODO (poofytoo) : listview should not be updated with json request, too slow. 
       // only update listview when user is done typing and off focus title
 
       _.bindAll(this, 'render');
       this.render();
+    },
+
+    updateSidebarTitle: function(e){
+      n = e.currentTarget.value;
+      link = "<a href='#"+n+"'>"+n+"</a>";
+      $("#A").html(link);
+    },
+
+    parseParentID: function(s){
+      n = s.split("-");
+      return n[n.length-1];
     },
 
     render: function(){
