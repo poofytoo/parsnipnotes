@@ -11,7 +11,7 @@ define([
     },
 
     initialize: function(options){
-
+      
       this.parseParentID(options.clicked);
       this.packlistView = options.packlistView;
       this.packlistView.addElem(this.parseParentID(options.clicked));

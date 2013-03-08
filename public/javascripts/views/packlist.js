@@ -15,12 +15,14 @@ define(["collections/packlist"], function(Packlist){
       this.collection.bind("reset", this.render, this);
       this.collection.fetch({data:{id:packName, minLevel:6}});
     },
+
+    // Adds an element under a topic head. called by CreatenotesView
     addElem: function(e){
 
         // TODO (poofytoo) : add under appropriate list. This list will be updated as typed.
         // TODO (poofytoo) : how does ID assignment work. what is going on.
-
-        $("#" + e).prepend("<li id='A' class='list-item' style='display:none'><a href='#'>NEW NOTES</a></li>");
+        
+        $("#" + e).prepend("<li id='A' class='list-item list-item-selected' style='display:none'><a href='#'>NEW NOTES</a></li>");
         $("#A").slideDown("fast");
 
     },
