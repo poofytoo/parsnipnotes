@@ -27,7 +27,7 @@ define(function(require){
       var html = "<ul>";
 
       _.each(this.collection.models, function(item){
-        html += "<li><a href='#" + item.id + "'>" + item.title + " <span class='search-item-desc'>&#149; " +  self.removeLinks(item.text) + "</span></a></li>";
+        html += "<li><a href='#" + item.get("id") + "'>" + item.get("title") + " <span class='search-item-desc'>&#149; " +  self.removeLinks(item.get("content")) + "</span></a></li>";
       });
 
       html += "</ul>"
@@ -79,7 +79,7 @@ define(function(require){
     },
 
     exitSearch: function(){
-    },
+    },x
 
   });
   return SearchlistView
