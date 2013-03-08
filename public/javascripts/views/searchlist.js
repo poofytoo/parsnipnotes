@@ -79,7 +79,7 @@ define(function(require){
     },
 
     exitSearch: function(){
-    },x
+    },
 
   });
   return SearchlistView
