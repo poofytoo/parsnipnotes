@@ -10,7 +10,7 @@ var express = require('express')
   , http = require('http')
   , path = require('path')
   , gk = require('./gatekeeper')
-  , gkRoutes = require('./routes/gkRoutes')
+  , jsroute = require('./routes/dynamicJson')
   , repl = require("repl"); // Used to make a REPL;
 
 var app = express();
@@ -39,13 +39,16 @@ app.configure('development', function(){
 
 
 // Use this to request a pack by raw ID
-app.get('/_gatekeeper/packByID.json/:id', gkRoutes.packByID);
+app.get('/_gatekeeper/pack/byID.json', jsroute.packByID);
 
 // Use these with Chunk.save() to create/save chunks
-app.put('/_gatekeeper/updateByID.json/:id', gkRoutes.updateByID);
+app.put('/_gatekeeper/updateByID.json/:id', jsroute.updateByID);
+
+// Get a graphified version for /graph/. This is kinda messy code
+app.get('/_gatekeeper/graphByID_shim.json/:id', jsroute.graphByID_shim);
 
 // Search query
-app.get('/_seeker/search.json', gkRoutes.searchFor);
+app.get('/_seeker/search.json', jsroute.searchFor);
 
 // These two routes go to the view
 app.get('/nb/:bookName/:packName', routes.index);

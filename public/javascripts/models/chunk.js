@@ -1,5 +1,7 @@
-define(function(require){
+define(["backbone"], function(Backbone){
 // Model for a Chunk, the smallest unit of content
+
+console.log("run once!");
 
   var Chunk = Backbone.Model.extend({
     initialize: function(){
@@ -9,7 +11,7 @@ define(function(require){
       this.text = this.attributes['content'];
     },
     
-    urlRoot: '/_gatekeeper/updateByID.json'
+    urlRoot: '/_gatekeeper/chunk/byID.json'
   });
 
   return Chunk;

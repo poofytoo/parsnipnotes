@@ -1,6 +1,5 @@
-define(function(require){  
+define(["collections/packlist"], function(Packlist){
 
-  var Packlist = require("collections/packlist");
   var PacklistView = Backbone.View.extend({
     el: $('#note-list'),
 
@@ -9,10 +8,12 @@ define(function(require){
 
     initialize: function(){
       _.bindAll(this, 'render');
+      
+      console.log(Packlist);
 
       this.collection = new Packlist();
       this.collection.bind("reset", this.render, this);
-      this.collection.fetch();
+      this.collection.fetch({data:{id:packName, minLevel:6}});
     },
     addElem: function(e){
         e = "#item-2a";
@@ -43,20 +44,20 @@ define(function(require){
 
         // TODO (poofytoo) : create divs to seperate each topic such that more can be appended
 
-        if (item.level == 12){
+        if (item.get("nodeLevel") == 12){
           // root node. don't display it for now
-        } else if (item.level == 9){
+        } else if (item.get("nodeLevel") == 9){
           listClass="list-topic";
           if (itemID != 1){
             html += "<li id='list-newitem-"+currentItemID+"' class='list-newitem'>+ new notes</li>";
           }
-          currentItemID = item.id;
-        } else if (item.id == packName){
+          currentItemID = item.get("id");
+        } else if (item.get("id") == packName){
           selected = " list-item-selected";
         } 
 
-        if (item.level != 12){
-          html += "<li id='item-" + item.id + "' class='" + listClass + " " + selected + "'><a href='#" + item.id + "'>" + item.title + "</a></li>"
+        if (item.get("nodeLevel") != 12){
+          html += "<li id='item-" + item.get("id") + "' class='" + listClass + " " + selected + "'><a href='#" + item.get("id") + "'>" + item.get("title") + "</a></li>"
         }
 
         itemID ++;
