@@ -41,17 +41,12 @@ var libraries = [ "underscore",
                   "views/chunks", 
                   "views/packlist",
                   "views/searchlist",
-                  "views/graph"];
+                  "views/graph",
+                  "views/createnotes"];
 
-require(libraries, function(_,b,$,arbor,tinyMCE,ChunksView,PacklistView,SearchlistView,GraphView) {
+require(libraries, function(_,b,$,arbor,tinyMCE,ChunksView,PacklistView,SearchlistView,GraphView, CreatenotesView) {
   if (debug) console.log('JavaScript Libraries Loaded');
-  tinyMCE.init({
-        mode : "specific_textareas",
-        editor_selector : "editable",
-        plugins : "latex",
-        theme_advanced_buttons1 : "bold,italic,underline,|,justifyleft,justifycenter,|,formatselect",
-        theme_advanced_blockformats : "p,h1"
-  });
+
   // Pack Router - allowing hash tags to change between pages
   var PackRouter = Backbone.Router.extend({
     routes: {
@@ -72,6 +67,23 @@ require(libraries, function(_,b,$,arbor,tinyMCE,ChunksView,PacklistView,Searchli
 
   // Appview - view generator for the entire app
   var AppView = Backbone.View.extend({
+    el: $('#content'),
+
+    events: {      
+      'click div#add-item' : 'newNote',
+    },
+    newNote: function(){
+
+      this.createnotesView = new CreatenotesView();
+      tinyMCE.init({
+            mode : "specific_textareas",
+            editor_selector : "editable",
+            plugins : "latex",
+            theme_advanced_buttons1 : "bold,italic,underline,|,justifyleft,justifycenter,|,formatselect",
+            theme_advanced_blockformats : "p,h1"
+      });
+
+    },
     initialize: function(){
 
       if (displayMode != 'graph'){

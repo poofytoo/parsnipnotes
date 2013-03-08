@@ -262,3 +262,15 @@ span.search-item-desc{
 	opacity: 1;
 	cursor: pointer;
 }
+
+#new-notes-title{
+	width: 100%;
+	margin-bottom: 10px;
+	font-size: 24px;
+	font-family: "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+	padding: 10px;
+}
+#new-notes-body {
+	width: 100%;
+	height: 300px;
+}
