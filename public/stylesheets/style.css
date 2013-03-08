@@ -265,10 +265,16 @@ span.search-item-desc{
 
 #new-notes-title{
 	width: 100%;
-	margin-bottom: 10px;
-	font-size: 24px;
-	font-family: "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+	margin-bottom: 30px;
+	margin-left: -10px;
 	padding: 10px;
+	font-size: 30px;
+	font-family: "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+	outline: none;
+	border: none;
+}
+#new-notes-title:focus{
+	background-color: #f5f5f5;
 }
 #new-notes-body {
 	width: 100%;

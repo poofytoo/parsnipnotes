@@ -70,11 +70,11 @@ require(libraries, function(_,b,$,arbor,tinyMCE,ChunksView,PacklistView,Searchli
     el: $('#content'),
 
     events: {      
-      'click div#add-item' : 'newNote',
+      'click div#add-item'    : 'newNote',
+      'click li.list-newitem' : 'newNote',
     },
     newNote: function(){
-
-      this.createnotesView = new CreatenotesView();
+      this.createnotesView = new CreatenotesView({packlistView: this.packlistView});
       tinyMCE.init({
             mode : "specific_textareas",
             editor_selector : "editable",

@@ -14,39 +14,55 @@ define(function(require){
       this.collection.bind("reset", this.render, this);
       this.collection.fetch();
     },
+    addElem: function(e){
+        e = "#item-2a";
+        // TODO (poofytoo) : add under appropriate list. This list will be updated as typed.
+ 
+        $(e).append("<li id='nope' style='display:none'>nope, this does not go here</li>");
+        $("#nope").slideDown("fast");
 
+    },
     render: function(){
       if (debug) console.log("Generating Sidebar, selected: " + packName);
 
       var self = this;
       var itemID = 0;
+      var currentItemID
       var html = "<ul>";
       html += "<li class='list-head'>YOUR NOTES<div id='add-item'>+</div></li>";
       _.each(this.collection.models, function(item){
         selected = "";
         listClass = "list-item";
+
         // node level 12 is the user. do not display this.
         // node level 9 is the topic header
 
+        // item.id refers to the ID as given by the backend
+        // itemID refers to our counting system. wheee.
+        // currentItemID refers to the backend ID of the current subtree the node is in
+
+        // TODO (poofytoo) : create divs to seperate each topic such that more can be appended
+
         if (item.level == 12){
-          // root node
+          // root node. don't display it for now
         } else if (item.level == 9){
           listClass="list-topic";
           if (itemID != 1){
-            html += "<li class='list-newitem'>+ new notes</li>";
+            html += "<li id='list-newitem-"+currentItemID+"' class='list-newitem'>+ new notes</li>";
           }
+          currentItemID = item.id;
         } else if (item.id == packName){
           selected = " list-item-selected";
         } 
 
         if (item.level != 12){
-          html += "<li class='" + listClass + " " + selected + "'><a href='#" + item.id + "'>" + item.title + "</a></li>"
+          html += "<li id='item-" + item.id + "' class='" + listClass + " " + selected + "'><a href='#" + item.id + "'>" + item.title + "</a></li>"
         }
 
         itemID ++;
       });
       
-      html += "<li class='list-newitem'>+ new notes</li>";
+      html += "<li id='item-' " + currentItemID + " class='list-newitem'>+ new notes</li>";
       html += "</ul>";
 
       $(this.el).html(html);
