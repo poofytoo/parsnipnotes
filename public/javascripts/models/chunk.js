@@ -3,6 +3,7 @@ define(function(require){
 
   var Chunk = Backbone.Model.extend({
     initialize: function(){
+      this.id = this.attributes['_id'];
       this.level = this.attributes['nodeLevel'];
       this.title = this.attributes['title'];
       this.text = this.attributes['content'];
