@@ -42,10 +42,10 @@ app.configure('development', function(){
 app.get('/_gatekeeper/pack/byID.json', jsroute.packByID);
 
 // Use these with Chunk.save() to create/save chunks
-app.put('/_gatekeeper/updateByID.json/:id', jsroute.updateByID);
+app.put('/_gatekeeper/chunk/byID.json/:id', jsroute.updateByID);
 
 // Get a graphified version for /graph/. This is kinda messy code
-app.get('/_gatekeeper/graphByID_shim.json/:id', jsroute.graphByID_shim);
+app.get('/_gatekeeper/graph/byID/:id', jsroute.graphByID_shim);
 
 // Search query
 app.get('/_seeker/search.json', jsroute.searchFor);

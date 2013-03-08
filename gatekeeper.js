@@ -216,8 +216,19 @@ function _packNode(id, callback) {
  *Generates a node:edge format that arbor.js expects
  */
 exports.graphNode_shim = function(id, callback) {
-  var ret = {};
-  
+  var ret = {nodes:{
+          sleep:{title:"sleep"},
+          stress:{title:"stress"},
+          unifried:{title:"unifried"},
+          notely:{title:"notely"},
+          course6:{title:"course6"}
+        },
+        edges:{
+          sleep:{stress:{}},
+          stress:{unifried:{}, notely:{}},
+          notely:{course6:{}}
+        }};
+  callback(ret);
 }
 
 exports.createData = function() {

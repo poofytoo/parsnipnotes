@@ -5,7 +5,7 @@ define(["backbone"], function(Backbone){
     initialize: function(){
     },
     
-    urlRoot: '/_gatekeeper/graph/byID.json'
+    urlRoot: '/_gatekeeper/graph/byID'
   });
 
   return Graph;

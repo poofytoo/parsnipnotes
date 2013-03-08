@@ -164,7 +164,20 @@ define(function(require){
         return that
       }
       
-      this.render();
+      
+      
+      $(this.el).html('<canvas id="graphport" width="800" height="600"></canvas>');
+    
+      this.sys = arbor.ParticleSystem(1000, 600, 0.5) // create the system with sensible repulsion/stiffness/friction
+      this.sys.parameters({gravity:true}) // use center-gravity to make the graph settle nicely (ymmv)
+      this.sys.renderer = this.Renderer("#graphport") // our newly created renderer will have its .init() method called shortly by sys...
+      
+      this.graph = new Graph();
+      this.graph.id = packName;
+      this.graph.bind("reset", this.render, this);
+      this.graph.bind("change", this.render, this);
+      this.graph.fetch();
+      
       //this.collection = new Searchlist({searchQuery:"hey"});
       //this.collection.bind("reset", this.render, this);
       //this.collection.fetch();
@@ -178,36 +191,11 @@ define(function(require){
       "Oceania": "#4F2170",
       "South America": "#CD2900"
     },
-      
+    
+    // Note that this kind of breaks things
     render: function(){
       
-      $(this.el).html('<canvas id="graphport" width="800" height="600"></canvas>');
-    
-      this.sys = arbor.ParticleSystem(1000, 600, 0.5) // create the system with sensible repulsion/stiffness/friction
-      this.sys.parameters({gravity:true}) // use center-gravity to make the graph settle nicely (ymmv)
-      this.sys.renderer = this.Renderer("#graphport") // our newly created renderer will have its .init() method called shortly by sys...
-  
-      // add some nodes to the graph and watch it go...
-      //sys.addEdge('a','b')
-      //sys.addEdge('a','c')
-      //sys.addEdge('a','d')
-      //sys.addEdge('a','e')
-      //sys.addNode('f', {alone:true, mass:.25})
-      
-      this.sys.graft({
-        nodes:{
-          sleep:{title:"sleep"},
-          stress:{title:"stress"},
-          unifried:{title:"unifried"},
-          notely:{title:"notely"},
-          course6:{title:"course6"}
-        },
-        edges:{
-          sleep:{stress:{}},
-          stress:{unifried:{}, notely:{}},
-          notely:{course6:{}}
-        }
-      });
+      this.sys.graft({nodes:this.graph.get("nodes"), edges:this.graph.get("edges")});
       
       return this;
     }
