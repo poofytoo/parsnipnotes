@@ -43,7 +43,7 @@ define(["collections/packlist"], function(Packlist){
         // itemID refers to our counting system. wheee.
         // currentItemID refers to the backend ID of the current subtree the node is in
 
-        // TODO (poofytoo) : create divs to seperate each topic such that more can be appended
+        // TODO (poofytoo) : clean this chunk of code to make it make sense.
 
         if (item.get("nodeLevel") == 12){
           // root node. don't display it for now
