@@ -62,7 +62,11 @@ define(function(require){
       
       if (this.searchString != event.currentTarget.value) {
         this.searchString = event.currentTarget.value;
-        this.collection.fetch({data: {q: this.searchString}});
+        if (this.searchString == '') {
+            $(this.searchEl).html(""); // Clear search bar
+        } else {
+            this.collection.fetch({data: {q: this.searchString}});
+        }
       }
       
       
