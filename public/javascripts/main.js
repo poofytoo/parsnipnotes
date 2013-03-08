@@ -73,8 +73,9 @@ require(libraries, function(_,b,$,arbor,tinyMCE,ChunksView,PacklistView,Searchli
       'click div#add-item'    : 'newNote',
       'click li.list-newitem' : 'newNote',
     },
-    newNote: function(){
-      this.createnotesView = new CreatenotesView({packlistView: this.packlistView});
+    newNote: function(e){
+
+      this.createnotesView = new CreatenotesView({clicked: e.currentTarget.id, packlistView: this.packlistView});
       tinyMCE.init({
             mode : "specific_textareas",
             editor_selector : "editable",

@@ -16,11 +16,12 @@ define(["collections/packlist"], function(Packlist){
       this.collection.fetch({data:{id:packName, minLevel:6}});
     },
     addElem: function(e){
-        e = "#item-2a";
+
         // TODO (poofytoo) : add under appropriate list. This list will be updated as typed.
- 
-        $(e).append("<li id='nope' style='display:none'>nope, this does not go here</li>");
-        $("#nope").slideDown("fast");
+        // TODO (poofytoo) : how does ID assignment work. what is going on.
+
+        $("#" + e).prepend("<li id='A' class='list-item' style='display:none'><a href='#'>NEW NOTES</a></li>");
+        $("#A").slideDown("fast");
 
     },
     render: function(){
@@ -49,21 +50,26 @@ define(["collections/packlist"], function(Packlist){
         } else if (item.get("nodeLevel") == 9){
           listClass="list-topic";
           if (itemID != 1){
-            html += "<li id='list-newitem-"+currentItemID+"' class='list-newitem'>+ new notes</li>";
+            html += "<li id='list-newitem-"+currentItemID+"' class='list-newitem'>+ new notes</li></div>";
           }
           currentItemID = item.get("id");
         } else if (item.get("id") == packName){
           selected = " list-item-selected";
         } 
-
         if (item.get("nodeLevel") != 12){
+          console.log(item.get("nodeLevel"));
           html += "<li id='item-" + item.get("id") + "' class='" + listClass + " " + selected + "'><a href='#" + item.get("id") + "'>" + item.get("title") + "</a></li>"
+        
+          if (item.get("nodeLevel") == 9){
+            html += "<div id='" + item.get("id") + "'>";
+          }
         }
 
         itemID ++;
       });
       
       html += "<li id='item-' " + currentItemID + " class='list-newitem'>+ new notes</li>";
+      html += "</div>"
       html += "</ul>";
 
       $(this.el).html(html);
