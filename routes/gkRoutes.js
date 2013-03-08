@@ -19,3 +19,12 @@ exports.updateByID = function(req, res) {
   // Should really have error handling, but y'know...
   res.json({});
 }
+
+exports.searchFor = function(req, res) {
+    if (req.query.q) {
+        gk.makeSearch(req.query.q, function(obj) {
+            res.json(obj);
+        });
+    }
+}
+

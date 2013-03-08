@@ -44,6 +44,9 @@ app.get('/_gatekeeper/packByID.json/:id', gkRoutes.packByID);
 // Use these with Chunk.save() to create/save chunks
 app.put('/_gatekeeper/updateByID.json/:id', gkRoutes.updateByID);
 
+// Search query
+app.get('/_seeker/search.json', gkRoutes.searchFor);
+
 // These two routes go to the view
 app.get('/nb/:bookName/:packName', routes.index);
 app.get('/graph/:bookName/:packName', routes.graph);
