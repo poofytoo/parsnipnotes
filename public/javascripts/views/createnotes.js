@@ -11,9 +11,15 @@ define([
     },
 
     initialize: function(options){
-      
+
+      // this packname really needs to be removed, but its the only way we know about the page currently
+      // TODO (anyone) : look up get router functions
+
+      packName = "";
+
       this.parseParentID(options.clicked);
       this.packlistView = options.packlistView;
+      this.packlistView.render();
       this.packlistView.addElem(this.parseParentID(options.clicked));
 
       // TODO (poofytoo) : listview should not be updated with json request, too slow. 
@@ -23,9 +29,13 @@ define([
       this.render();
     },
 
+    // TODO (anyone) : move this to packlist possibly, doesn't make sense here
     updateSidebarTitle: function(e){
       n = e.currentTarget.value;
       link = "<a href='#"+n+"'>"+n+"</a>";
+      if (n == ""){
+        link = "<span class='placeholder-newItem'><a href='#'>NEW NOTES</a></span>";
+      }
       $("#A").html(link);
     },
 

@@ -21,8 +21,8 @@ define(["collections/packlist"], function(Packlist){
 
         // TODO (poofytoo) : add under appropriate list. This list will be updated as typed.
         // TODO (poofytoo) : how does ID assignment work. what is going on.
-        
-        $("#" + e).prepend("<li id='A' class='list-item list-item-selected' style='display:none'><a href='#'>NEW NOTES</a></li>");
+
+        $("#" + e).prepend("<li id='A' class='list-item list-item-selected' style='display:none'><span class='placeholder-newItem'><a href='#'>NEW NOTES</a></span></li>");
         $("#A").slideDown("fast");
 
     },
