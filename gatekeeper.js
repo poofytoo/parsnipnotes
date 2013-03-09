@@ -2,7 +2,7 @@
  *JSON Schema
  *node:
  *{
- *  _id: "/owner/folder/file"
+ *  _id: "owner--file"
  *  
  *  // Data Entries
  *  title: "myTitle"
@@ -22,7 +22,7 @@
  */
 
 var databaseUrl = "notely";
-var collections = ["nodes", "search"]
+var collections = ["nodes"]
 var db = require("mongojs").connect(databaseUrl, collections);
 
 db.nodes.ensureIndex({_nodeLevel: 1});

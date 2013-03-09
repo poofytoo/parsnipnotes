@@ -3,7 +3,7 @@
  */
 
 var databaseUrl = "notely";
-var collections = ["nodes", "search"]
+var collections = ["nodes"]
 var db = require("mongojs").connect(databaseUrl, collections);
 
 function _flattenTreeToArray(node, minLevel, ret) {
@@ -24,7 +24,7 @@ function _flattenTreeToArray(node, minLevel, ret) {
 var makeSearch = function(query, callback, limit) {
     limit = typeof limit == 'undefined' ? 5 : limit; // default limit = 5
     query = query.toLowerCase().replace(/[^\w]/g, "");
-    db.search.find({_id: {$regex: '^' + query}}, function(err, results) {
+    db.nodes.find({_id: {$regex: '^_search--' + query}}, function(err, results) {
         if (err) {
             console.log('Error in search');
         } else if (results) {
@@ -33,10 +33,8 @@ var makeSearch = function(query, callback, limit) {
             }
             for (var i in results) {
                 var result = results[i];
-                result.title = result._id + result.node_id.replace(/(.*)_(.*)_(.*)/, ' ($1 Lecture $2)');
                 result.id = result._id;
-                result.nodeLevel = 0;
-                result._children = [];
+                result.title = result.title + result._children[0]._id.replace(/(.*)--(.*)--(.*)/, ' ($1 Lecture $2)');
             }
             callback(results);
         }
@@ -90,7 +88,7 @@ exports.packNode = function(id, minLevel, callback) {
   db.nodes.findOne({_id:id}, function (err, node) {
     if (err || !node) {
       console.log("Can't find " + id);
-      makeSearchQuery(id, id, callback);
+      makeSearch(id, callback);
     } else {
       var lookup = _flattenTreeToArray(node, minLevel, []);
       
@@ -118,3 +116,19 @@ exports.packNode = function(id, minLevel, callback) {
   });
 }
 
+/**
+ * Adds a note.
+ * The note must have the following attributes: title, content.
+ */
+exports.newNote = function(username, note) {
+    // Add note
+    db.nodes.insert({'title': note.title, 'content': note.content, 'children': [], 'nodeLevel': 0}, {safe: true}, function(err, records) {
+        if (err) {
+            console.log("newNote: error in inserting new note");
+        } else {
+            // Add to user list (must be in callback because it needs id)
+            records[0].content = ''
+            db.nodes.update({'_id': username + ":"}, { $push: {'children': records[0]} });
+        }
+    });
+}
