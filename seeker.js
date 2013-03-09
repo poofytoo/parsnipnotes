@@ -34,6 +34,7 @@ var makeSearch = function(query, callback, limit) {
             for (var i in results) {
                 var result = results[i];
                 result.title = result._id + result.node_id.replace(/(.*)_(.*)_(.*)/, ' ($1 Lecture $2)');
+                result.id = result._id;
                 result.nodeLevel = 0;
                 result._children = [];
             }
@@ -67,6 +68,7 @@ var makeSearchQuery = function(id, query, callback, limit) {
                 for (var i in sortedNodes) {
                     if (sortedNodes[i].content.indexOf(query) != -1) {
                         sortedNodes[i].nodeLevel = 0;
+                        sortedNodes[i].id = sortedNodes[i]._id;
                         ret.push(sortedNodes[i]);
                     }
                 }
