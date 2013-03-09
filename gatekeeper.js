@@ -212,23 +212,55 @@ function _packNode(id, callback) {
 }
 */
 
+function _flattenTreeToArray(node, minLevel, ret) {
+  if (node.nodeLevel >= minLevel) {
+    ret.push(node._id);
+    if (node._children) {
+      for (var i in node._children) {
+        _flattenTreeToArray(node._children[i], minLevel, ret);
+      }
+    }
+  }
+  return ret;
+}
+
+function _putEdges(node, ret) {
+  if (node._children) {
+    for (var i in node._children) {
+      ret.edges[node._id][node._children[i]._id] = {};
+      _putEdges(node._children[i], ret);
+    }
+  }
+}
+
 /**
  *Generates a node:edge format that arbor.js expects
  */
 exports.graphNode_shim = function(id, callback) {
-  var ret = {nodes:{
-          sleep:{title:"sleep"},
-          stress:{title:"stress"},
-          unifried:{title:"unifried"},
-          notely:{title:"notely"},
-          course6:{title:"course6"}
-        },
-        edges:{
-          sleep:{stress:{}},
-          stress:{unifried:{}, notely:{}},
-          notely:{course6:{}}
-        }};
-  callback(ret);
+  var ret = {
+      nodes:{}
+    , edges:{}};
+        
+  db.nodes.findOne({_id:id}, function (err, node) {
+    if (err || !node) {
+      console.log("Can't find " + id);
+    } else {
+      lookup = _flattenTreeToArray(node, 0, []);
+      _putEdges(node, ret);
+      db.nodes.find({_id: {$in: lookup}}, function(err, sortedNodes) {
+        if (err || !sortedNodes) {
+          console.log('Could not graphNode()');
+        } else {
+          for (var i in sortedNodes) {
+            ret.nodes[sortedNodes[i]._id] = {title: sortedNodes[i].title};
+            // _putEdges(node, ret); Will make recursive, but need to check for add'l nodes
+          }
+          
+          callback(ret);
+        }
+      });
+    }
+  });
 }
 
 exports.createData = function() {
