@@ -227,6 +227,9 @@ function _flattenTreeToArray(node, minLevel, ret) {
 function _putEdges(node, ret) {
   if (node._children) {
     for (var i in node._children) {
+      if (!ret.edges[node._id]) {
+        ret.edges[node._id] = {};
+      }
       ret.edges[node._id][node._children[i]._id] = {};
       _putEdges(node._children[i], ret);
     }
