@@ -2,7 +2,8 @@
 #note-list{
 	background-color: #f8f8f8;
 	border-left: 1px #e6e6e6 solid;
-	height: 100%;
+	height: -calc(100% - 40px);
+	height: -webkit-calc(100% - 40px);
 	width: 299px;
 	float: right;
 	overflow-y: auto;
@@ -76,4 +77,36 @@
 
 span.placeholder-newItem a{
 	opacity: 0.3;
+}
+
+#note-list-toggle{
+	position: fixed;
+	right: 0px;
+	bottom: 0px;
+	background-color: #ececec;
+	height: 40px;
+	width: 300px;
+}
+#note-list-toggle ul li{
+	display: inline-block;
+	height: 40px;
+	width: 50px;
+	border-right: 1px #dddddd solid;
+	border-top: 1px #dddddd solid;
+	margin: 0;
+}
+#note-list-toggle ul li.selected{
+	display: inline-block;
+	height: 40px;
+	width: 50px;
+	background-color: #f8f8f8;
+	border-left: 1px #e3e3e3 solid;
+	border-right: 1px #e3e3e3 solid;
+	border-top: 1px #efefef solid;
+}
+#note-list-toggle ul li.filler{
+	width: 144px;
+	background-color: #ececec;
+	border-top: 1px #dddddd solid;
+	height: 40px;
 }
