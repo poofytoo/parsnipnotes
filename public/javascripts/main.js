@@ -46,7 +46,7 @@ var libraries = [ "underscore",
 
 require(libraries, function(_,b,$,arbor,tinyMCE,ChunksView,PacklistView,SearchlistView,GraphView, CreatenotesView) {
   if (debug) console.log('JavaScript Libraries Loaded');
-
+      
   // Pack Router - allowing hash tags to change between pages
   var PackRouter = Backbone.Router.extend({
     routes: {
@@ -81,7 +81,8 @@ require(libraries, function(_,b,$,arbor,tinyMCE,ChunksView,PacklistView,Searchli
             editor_selector : "editable",
             plugins : "latex",
             theme_advanced_buttons1 : "bold,italic,underline,|,justifyleft,justifycenter,|,formatselect",
-            theme_advanced_blockformats : "p,h1"
+            theme_advanced_blockformats : "p,h1",
+            theme_advanced_buttons2: "latex"
       });
 
     },
