@@ -80,11 +80,9 @@ require(libraries, function(_,b,$,arbor,tinyMCE,ChunksView,PacklistView,Searchli
             mode : "specific_textareas",
             editor_selector : "editable",
             plugins : "latex, inlinepopups",
-            theme_advanced_buttons1 : "bold,italic,underline,|,justifyleft,justifycenter,|,formatselect",
-            theme_advanced_blockformats : "p,h1",
-            theme_advanced_buttons2: "latex"
+            theme_advanced_buttons1 : "bold,italic,underline,|,justifyleft,justifycenter,|,formatselect,|,latex",
+            theme_advanced_blockformats : "p,h1"
       });
-
     },
     initialize: function(){
 

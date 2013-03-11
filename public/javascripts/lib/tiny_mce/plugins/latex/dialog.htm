@@ -8,14 +8,14 @@
 <body>
 
 <form onsubmit="ExampleDialog.insert();return false;" action="#">
-	<p>Paste your latex code.</p>
-	<p><input type="button" id="preview" name="preview" value="Preview" onclick="LatexDialog.preview();" /></p>
-	<p><img id="previewImg" src="" alt=""/></p>
+	<h1>Paste your latex code here</h1>
+	<p class='previewImgWrapper'><img class='previewImg' id="previewImg" src="" alt=""/></p>
 	<p><textarea name="latex_code" cols="100" rows="19"></textarea></p>
 
 	<div class="mceActionPanel">
-		<input type="button" id="insert" name="insert" value="{#insert}" onclick="LatexDialog.insert();" />
-		<input type="button" id="cancel" name="cancel" value="{#cancel}" onclick="tinyMCEPopup.close();" />
+		<input type="button" class='button insert' id="insert" name="insert" value="{#insert}" onclick="LatexDialog.insert();" />
+		<input type="button" class='button preview' id="preview" name="preview" value="Preview" onclick="LatexDialog.preview();" />
+		<input type="button" class='button cancel' id="cancel" name="cancel" value="{#cancel}" onclick="tinyMCEPopup.close();" />
 	</div>
 </form>
 
